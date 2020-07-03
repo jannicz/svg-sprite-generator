@@ -1,22 +1,11 @@
-import { useRouter } from 'next/router'
-import React, { useEffect } from 'react';
+import { withRouter } from 'next/router'
+import React from 'react';
 import Link from 'next/link';
 import faqs from '../../assets/faq.json';
 
-const Faq = () => {
-  const router = useRouter();
-  const queryId = router.query && router.query.id ? Number(router.query.id) : 0;
-
-  useEffect(() => {
-    console.log('FAQ useEffect... router.query.id =>', router.query.id , 'faqEntry =>', faqs[queryId]);
-  }, []);
-
-  // FIXME Workaround because no server side data yet
-  if (!faqs[queryId]) {
-    return <p>empty...</p>;
-  }
-
-  const entry: { title: string, content: string } = faqs[queryId];
+const Faq = (props) => {
+  // Access the injected router (export default withRouter())
+  const { router } = props;
 
   return (
     <>
@@ -24,11 +13,29 @@ const Faq = () => {
       <Link href='/faqs'>
         <a>Back to FAQ List</a>
       </Link>
-      <h2>{entry.title}</h2>
-      <p>{entry.content}</p>
-      <pre>FAQ id: {queryId}</pre>
+      <h2>{props.entry.title}</h2>
+      <p>{props.entry.content}</p>
+      <pre>FAQ nr: {router?.query?.id}</pre>
     </>
   )
 }
 
-export default Faq;
+Faq.getInitialProps = ({ query, req }) => {
+  const queryId = query.id;
+
+  // Executed both on server and on client side, depending who first
+  console.log('Can be executed both on server and on client side, id =>', queryId);
+
+  if (req) {
+    console.log('Only executed on server side', req.url);
+  }
+
+  return {
+    entry: faqs[queryId]
+  };
+}
+
+// Before 6.x the url property got injected into every
+// Page component. Now inject the Next router object into
+// pages and all their descending components.
+export default withRouter(Faq);

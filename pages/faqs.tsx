@@ -17,7 +17,7 @@ const Faqs = () => {
           faqList.map((e, i) =>
             i > 0 ?
             <li key={i}>
-              <Link href='/faq/[i]' as={'/faq/' + i}>
+              <Link href='/faq/[id]' as={'/faq/' + i}>
                 <a>{e.title}</a>
               </Link>
             </li> : null
