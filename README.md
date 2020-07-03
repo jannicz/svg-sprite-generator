@@ -1,1 +1,5 @@
-# svg-sprite-generator
+# SVG Sprite Generator
+
+## What it does
+
+## Usage
