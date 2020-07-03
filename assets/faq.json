@@ -1,0 +1,13 @@
+{
+  "0": {
+    "title": "Whoops, what happened here?"
+  },
+  "1": {
+    "title": "What does this library do?",
+    "content": "You can upload multiple SVG files using the UPLOAD form - the library will process them and create one SVG file containing your icons as 'symbols'. These can be used inside your project similarly to a sprite file."
+  },
+  "2": {
+    "title": "How can i import it into my project?",
+    "content": "You can run npm i -D svg-icon-sprite to add the library as a dev dependency."
+  }
+}
