@@ -1,0 +1,20 @@
+@import './normalize';
+@import './vars';
+
+body {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  color: $color-dark;
+}
+
+main {
+  padding: 0 20px 60px 20px;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  padding: 10px 20px;
+  border-top: 1px solid $color-dark;
+  width: 100%;
+  background-color: $color-white;
+}

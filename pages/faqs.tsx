@@ -1,16 +1,23 @@
 import React from 'react';
 import Link from 'next/link';
+import Head from 'next/head';
 import faqs from '../assets/faq.json';
+import Layout from '../components/Layout/Layout';
 
 const Faqs = () => {
   const faqList = Object.values(faqs);
 
   return (
-    <div>
-      <h1>FAQ</h1>
+    <Layout>
+      <Head>
+        <title>SVG sprite generator - FAQ section</title>
+      </Head>
+
       <Link href='/'>
         <a>Back to Index</a>
       </Link>
+
+      <h2>FAQ</h2>
 
       <ul>
         {
@@ -24,7 +31,7 @@ const Faqs = () => {
           )
         }
       </ul>
-    </div>
+    </Layout>
   );
 }
 
