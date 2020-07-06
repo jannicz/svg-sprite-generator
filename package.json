@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "next -p 3001",
     "build": "next build",
+    "export:static": "next build && next export -o docs/",
     "start": "next start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
