@@ -4,7 +4,7 @@ import Head from 'next/head';
 import faqs from '../assets/faq.json';
 import Layout from '../components/Layout/Layout';
 
-const Faqs = () => {
+const FaqsPage = () => {
   const faqList = Object.values(faqs);
 
   return (
@@ -35,4 +35,4 @@ const Faqs = () => {
   );
 }
 
-export default Faqs;
+export default FaqsPage;

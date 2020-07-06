@@ -1,7 +1,7 @@
 {
   "name": "svg-sprite-generator",
-  "version": "0.1.0",
-  "description": "",
+  "version": "0.2.0",
+  "description": "App to create SVG symbols files by simply dropping all your icons here",
   "main": "index.js",
   "scripts": {
     "dev": "next -p 3001",

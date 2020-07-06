@@ -1,0 +1,39 @@
+[
+  {
+    "attribute": "stroke",
+    "description": "sets the color of the line drawn around the object",
+    "example": "<rect stroke=\"blue\" .../>",
+    "link": "https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Fills_and_Strokes"
+  },
+  {
+    "attribute": "fill",
+    "description": "sets the color inside the object",
+    "example": "<rect fill=\"purple\" .../>",
+    "link": "https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Fills_and_Strokes"
+  },
+  {
+    "attribute": "stroke-opacity",
+    "description": "opacity of the stroke",
+    "example": "stroke-opacity=\"0.8\"",
+    "link": "https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Fills_and_Strokes"
+  },
+  {
+    "attribute": "fill-opacity",
+    "description": "opacity of the fill",
+    "example": "fill-opacity=\"0.5\"",
+    "link": "https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Fills_and_Strokes"
+  },
+  {
+    "attribute": "stroke-width",
+    "description": "property defines the width of this stroke",
+    "example": "<line stroke=\"black\" stroke-width=\"20\" ...",
+    "link": "https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Fills_and_Strokes"
+  },
+  {
+    "attribute": "stroke-linecap",
+    "description": "controls the shape of the ends of lines",
+    "values": ["butt", "square", "round"],
+    "example": "<line stroke=\"black\" stroke-width=\"20\" ...",
+    "link": "https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Fills_and_Strokes"
+  }
+]

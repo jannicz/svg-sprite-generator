@@ -5,7 +5,7 @@ import Layout from '../../components/Layout/Layout';
 import faqs from '../../assets/faq.json';
 import styles from './id.module.scss';
 
-const Faq = (props) => {
+const FaqPage = (props) => {
   // Access the injected router (export default withRouter())
   const { router } = props;
 
@@ -24,14 +24,20 @@ const Faq = (props) => {
 }
 
 // A page containing getInitialProps (shows lambda during build) renders at runtime
-Faq.getInitialProps = ({ query, req }) => {
+FaqPage.getInitialProps = ({ query, req }) => {
   const faqEntry = faqs[query.id] || faqs[0];
 
   // Executed both on server and on client side, depending who first
   console.log('Can be executed both on server and on client side, id =>', query.id);
 
+  // Req only exists on server side
   if (req) {
     console.log('Only executed on server side', req.url);
+  }
+
+  // Window only exists on client side (this would be removed in a client prod bundle)
+  if (typeof window !== 'undefined') {
+    console.log('Only executed on client side', !!window);
   }
 
   return {
@@ -42,4 +48,4 @@ Faq.getInitialProps = ({ query, req }) => {
 // Before 6.x the url property got injected into every
 // Page component. Now inject the Next router object into
 // pages and all their descending components.
-export default withRouter(Faq);
+export default withRouter(FaqPage);

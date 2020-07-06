@@ -15,11 +15,15 @@ const Header = props => {
       <nav>
         <ul>
           <li>
+            <Link href='/attributes'>
+              <a>Which Attributes</a>
+            </Link>
+          </li>
+          <li>
             <Link href='/faqs'>
               <a>FAQ</a>
             </Link>
           </li>
-          <li>Demo</li>
           <li>License</li>
         </ul>
       </nav>
