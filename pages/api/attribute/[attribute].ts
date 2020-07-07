@@ -1,5 +1,6 @@
 import attributesJson from '../../../assets/attributes.json';
 import { NextApiRequest, NextApiResponse } from 'next';
+import { AttributeTableModel } from '../../../models/attributeTable.model';
 
 /**
  * Dynamic API requests
@@ -10,12 +11,12 @@ function handle(req: NextApiRequest, res: NextApiResponse) {
   console.log('API /[attribute] - find single SVG attribute, req.query =>', req.query);
 
   if (req.query && req.query.attribute) {
-    const foundAttribute = attributesJson.filter((a) => a.attribute === req.query.attribute);
+    const foundAttribute: AttributeTableModel[] = attributesJson.filter((a) => a.name === req.query.attribute);
 
     if (foundAttribute.length) {
       return res.status(200).json(foundAttribute);
     } else {
-      return res.status(404).json({ error: 'No such attribute with name' + req.query.attribute });
+      return res.status(404).json({ error: 'No such attribute with name ' + req.query.attribute });
     }
   } else {
     return res.status(400);

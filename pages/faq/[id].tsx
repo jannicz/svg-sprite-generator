@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Layout from '../../components/Layout/Layout';
 import faqs from '../../assets/faq.json';
 import styles from './id.module.scss';
+import PropTypes from 'prop-types';
 
 const FaqPage = (props) => {
   // Access the injected router (export default withRouter())
@@ -58,6 +59,12 @@ FaqPage.getInitialProps = async ({ query, req }) => {
     editDate: lastEdited
   };
 }
+
+FaqPage.propTypes = {
+  entry: PropTypes.object,
+  editDate: PropTypes.string,
+  router: PropTypes.object
+};
 
 // Before 6.x the url property got injected into every
 // Page component. Now inject the Next router object into

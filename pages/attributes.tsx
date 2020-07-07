@@ -5,6 +5,7 @@ import { AttributeTableModel } from '../models/attributeTable.model';
 import { textLabels } from '../models/attributeTableTextLabels.viewmodel';
 import { withRouter } from 'next/router';
 import MUIDataTable from 'mui-datatables';
+import PropTypes from 'prop-types';
 
 const AttributePage = (props) => {
   const [responsive, setResponsive] = useState('simple');
@@ -105,4 +106,8 @@ AttributePage.getInitialProps = async ({ query, req }) => {
   }
 };
 
-export default withRouter(AttributePage);
+AttributePage.propTypes = {
+  data: PropTypes.array
+};
+
+export default withRouter(AttributePage) as any;
