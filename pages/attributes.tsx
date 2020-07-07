@@ -1,30 +1,95 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Layout from '../components/Layout/Layout';
 import attributeTable from '../assets/attributes.json';
+import { AttributeTableModel } from '../models/attributeTable.model';
+import { textLabels } from '../models/attributeTableTextLabels.viewmodel';
 import { withRouter } from 'next/router';
+import MUIDataTable from 'mui-datatables';
 
 const AttributePage = (props) => {
+  const [responsive, setResponsive] = useState('simple');
+  const columns = [
+    {
+      label: 'Name',
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <a href={tableMeta.rowData[3]} target={'blank'}>{value}
+            {!tableMeta.rowData[5] ? <span title={'Not yet implemented'}>&nbsp;N/A</span> : ''}
+          </a>
+        }
+      }
+    }, {
+      label: 'Description'
+    }, {
+      label: 'Example',
+      options: {
+        searchable: false,
+        sort: false,
+        customBodyRender: (value) => <pre>{value}</pre>
+      }
+    }, {
+      label: 'Link',
+      options: {
+        display: 'excluded'
+      }
+    }, {
+      label: 'Removed'
+    }, {
+      label: 'Implemented',
+      options: {
+        display: 'excluded'
+      }
+    }
+  ];
+
+  // @see https://github.com/gregnb/mui-datatables#usage
+  const options = {
+    filter: false,
+    download: false,
+    rowsPerPageOptions: [5, 10, 20],
+    selectToolbarPlacement: 'none',
+    responsive,
+    onRowClick: (d) => {
+      console.log('row click', d);
+    },
+    textLabels: textLabels
+  };
+
   return (
     <Layout>
-      <h2>Which Attributes should be stripped?</h2>
+      <h2>Sprite generation script mode of behaviour</h2>
 
-      {
-        props.table.map((row, i) => {
-          return <p key={i}>{JSON.stringify(row)}</p>
-        })
-      }
+      <MUIDataTable
+        title={'Attributes that are removed by the SVG Sprite Generator'}
+        data={props.data}
+        columns={columns}
+        options={options}
+      />
     </Layout>
   );
 }
 
 // A page containing getInitialProps renders at runtime
 AttributePage.getInitialProps = async ({ query, req }) => {
+  function mapUiDataTable(data): AttributeTableModel[] {
+    return data.map((attr: AttributeTableModel) =>
+      [
+        attr.name,
+        attr.description,
+        attr.example,
+        attr.link,
+        attr.byDefault ? 'by default' : 'optionally',
+        attr.implemented
+      ]
+    );
+  }
+
   // Req only exists on server side
   if (req) {
     console.log('AttributePage - executed on server side', req.url);
 
     return {
-      table: attributeTable
+      data: mapUiDataTable(attributeTable)
     }
   }
 
@@ -35,10 +100,9 @@ AttributePage.getInitialProps = async ({ query, req }) => {
     console.log('AttributePage - executed on client side', response);
 
     return {
-      table: response
+      data: mapUiDataTable(response)
     };
   }
-
 };
 
 export default withRouter(AttributePage);

@@ -1,77 +1,80 @@
 [
   {
-    "attribute": "?xml",
+    "name": "?xml",
+    "implemented": true,
     "byDefault": true,
     "description": "namespace declaration",
     "example": "<svg xmlns=\"http://www.w3.org/2000/svg\" ...>",
     "link": "https://developer.mozilla.org/en-US/docs/Archive/Mozilla/XUL/Namespaces"
   },
   {
-    "attribute": "id",
+    "name": "id",
+    "implemented": true,
     "byDefault": true,
     "description": "assigns a unique name to an element",
     "example": "<rect stroke=\"blue\" .../>",
     "link": "https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/id"
   },
   {
-    "attribute": "version",
+    "name": "version",
+    "implemented": true,
     "byDefault": true,
     "description": "indicates what specification a SVG document conforms",
     "example": "<svg version=\"1.1\" ...>",
     "link": "https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/version"
   },
   {
-    "attribute": "xmlns",
+    "name": "xmlns",
+    "implemented": true,
     "byDefault": true,
     "description": "only required on the outermost svg element",
     "example": "<svg xmlns=\"http://www.w3.org/2000/svg\" ...>",
     "link": "https://developer.mozilla.org/en-US/docs/Web/SVG/Element/svg"
   },
   {
-    "attribute": "xmlns:xlink",
+    "name": "xmlns:xlink",
+    "implemented": true,
     "byDefault": true,
     "description": "namespace prefix",
-    "example": "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">",
+    "example": "<svg xmlns:xlink=\"http://www.w3.org/1999/xlink\">",
     "link": "https://developer.mozilla.org/en-US/docs/Web/SVG/Namespaces_Crash_Course"
   },
   {
-    "attribute": "stroke",
+    "name": "stroke",
+    "implemented": true,
     "byDefault": false,
     "description": "sets the color of the line drawn around the object",
     "example": "<rect stroke=\"blue\" .../>",
     "link": "https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Fills_and_Strokes"
   },
   {
-    "attribute": "fill",
+    "name": "fill",
+    "implemented": true,
     "byDefault": false,
     "description": "sets the color inside the object",
     "example": "<rect fill=\"purple\" .../>",
     "link": "https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Fills_and_Strokes"
   },
   {
-    "attribute": "stroke-opacity",
-    "hidden": true,
+    "name": "stroke-opacity",
     "description": "opacity of the stroke",
     "example": "stroke-opacity=\"0.8\"",
     "link": "https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Fills_and_Strokes"
   },
   {
-    "attribute": "fill-opacity",
-    "hidden": true,
+    "name": "fill-opacity",
     "description": "opacity of the fill",
     "example": "fill-opacity=\"0.5\"",
     "link": "https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Fills_and_Strokes"
   },
   {
-    "attribute": "stroke-width",
-    "hidden": true,
+    "name": "stroke-width",
     "description": "property defines the width of this stroke",
     "example": "<line stroke=\"black\" stroke-width=\"20\" ...",
     "link": "https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Fills_and_Strokes"
   },
   {
-    "attribute": "stroke-linecap",
-    "hidden": true,
+    "name": "stroke-linecap",
     "description": "controls the shape of the ends of lines",
     "values": ["butt", "square", "round"],
     "example": "<line stroke=\"black\" stroke-width=\"20\" ...",
