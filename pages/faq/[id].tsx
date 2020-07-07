@@ -19,13 +19,26 @@ const FaqPage = (props) => {
 
       <h3 className={styles.heading}>{props.entry.title}</h3>
       <p className={styles.content}>{props.entry.content}</p>
+      <time dateTime={props.entry.edited}>Edited: {props.editDate}</time>
     </Layout>
   )
 }
 
 // A page containing getInitialProps (shows lambda during build) renders at runtime
-FaqPage.getInitialProps = ({ query, req }) => {
+FaqPage.getInitialProps = async ({ query, req }) => {
   const faqEntry = faqs[query.id] || faqs[0];
+
+  // Async import inside the component creates a separate bundle for moment.js
+  // See https://v8.dev/features/dynamic-import
+  const moment = (
+    await import('moment')
+    // Reference the default export in a dynamic import
+  ).default;
+
+  moment.locale('en');
+  // moment.locale('de');
+
+  const lastEdited = moment(faqEntry.edited).startOf('day').fromNow();
 
   // Executed both on server and on client side, depending who first
   console.log('Can be executed both on server and on client side, id =>', query.id);
@@ -41,7 +54,8 @@ FaqPage.getInitialProps = ({ query, req }) => {
   }
 
   return {
-    entry: faqEntry
+    entry: faqEntry,
+    editDate: lastEdited
   };
 }
 
