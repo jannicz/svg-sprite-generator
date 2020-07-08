@@ -1,8 +1,9 @@
 import Link from 'next/link';
 import React from 'react';
 import styles from './Header.module.scss';
+import { NextPage } from 'next';
 
-const Header = props => {
+const Header: NextPage = () => {
   return (
     <header className={styles.header}>
       <h1>

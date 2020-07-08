@@ -1,8 +1,8 @@
+import { NextPage } from 'next';
 import React from 'react';
-import Link from 'next/link';
 import Layout from '../components/Layout/Layout';
 
-const Index = () => {
+const Index: NextPage = () => {
   console.log('Render Index.tsx');
 
   return (

@@ -1,17 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { AppProps } from 'next/app';
 import '../styles/styles.scss';
 
 /**
  * Contains global stylesheets
  */
-const App = ({ Component, pageProps }) => {
+const App = ({ Component, pageProps }: AppProps) => {
   return <Component {...pageProps} />
 }
-
-App.propTypes = {
-  Component: PropTypes.node,
-  pageProps: PropTypes.array
-};
 
 export default App;

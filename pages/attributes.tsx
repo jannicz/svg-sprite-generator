@@ -7,7 +7,7 @@ import { withRouter } from 'next/router';
 import MUIDataTable from 'mui-datatables';
 import PropTypes from 'prop-types';
 
-const AttributePage = (props) => {
+const AttributePage = (props: any) => {
   const [responsive, setResponsive] = useState('simple');
   const columns = [
     {

@@ -1,10 +1,11 @@
+import { NextPage } from 'next';
 import React from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
 import faqs from '../assets/faq.json';
 import Layout from '../components/Layout/Layout';
 
-const FaqsPage = () => {
+const FaqsPage: NextPage = () => {
   const faqList = Object.values(faqs);
 
   return (

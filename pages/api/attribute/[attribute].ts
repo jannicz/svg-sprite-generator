@@ -7,7 +7,7 @@ import { AttributeTableModel } from '../../../models/attributeTable.model';
  * @example http://localhost:3001/api/attribute/stroke
  * @returns JSON containing single object that matched the request query
  */
-function handle(req: NextApiRequest, res: NextApiResponse) {
+function handle(req: NextApiRequest, res: NextApiResponse<AttributeTableModel[] | { error: string}>): void {
   console.log('API /[attribute] - find single SVG attribute, req.query =>', req.query);
 
   if (req.query && req.query.attribute) {
@@ -19,7 +19,7 @@ function handle(req: NextApiRequest, res: NextApiResponse) {
       return res.status(404).json({ error: 'No such attribute with name ' + req.query.attribute });
     }
   } else {
-    return res.status(400);
+    return res.status(400).end();
   }
 }
 

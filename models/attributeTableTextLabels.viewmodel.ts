@@ -1,3 +1,4 @@
+/* eslint-disable */
 export const textLabels = {
   body: {
     noMatch: 'Sorry, no matching records found',
