@@ -1,4 +1,5 @@
-import { withRouter } from 'next/router'
+import { NextPage } from 'next';
+import { withRouter } from 'next/router';
 import React from 'react';
 import Link from 'next/link';
 import Layout from '../../components/Layout/Layout';
@@ -6,7 +7,7 @@ import faqs from '../../assets/faq.json';
 import styles from './id.module.scss';
 import PropTypes from 'prop-types';
 
-const FaqPage = (props) => {
+const FaqPage: NextPage = (props) => {
   // Access the injected router (export default withRouter())
   const { router } = props;
 

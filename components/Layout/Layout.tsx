@@ -1,10 +1,10 @@
+import { NextPage } from 'next';
 import React from 'react';
 import Header from '../Header/Header';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
-import { NextPage } from 'next';
 
-const Layout: NextPage = (props: { children: React.ReactNode }) => {
+const Layout: NextPage = (props: { children: NextPage }) => {
   return (
     <>
       <Head>
