@@ -2,6 +2,8 @@ import { NextPage } from 'next';
 import React from 'react';
 import Layout from '../components/Layout/Layout';
 
+import { appWithTranslation } from '../server/i18n.js';
+
 const Index: NextPage = () => {
   console.log('Render Index.tsx');
 

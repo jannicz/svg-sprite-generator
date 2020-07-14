@@ -1,15 +1,15 @@
 import { NextPage } from 'next';
-import { withRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import React from 'react';
 import Link from 'next/link';
 import Layout from '../../components/Layout/Layout';
+import { FaqEntryModel } from '../../models/faqEntry.model';
 import faqs from '../../assets/faq.json';
 import styles from './id.module.scss';
 import PropTypes from 'prop-types';
 
-const FaqPage: NextPage = (props) => {
-  // Access the injected router (export default withRouter())
-  const { router } = props;
+const FaqPage: NextPage = (props: any) => {
+  const router = useRouter();
 
   return (
     <Layout>
@@ -28,7 +28,10 @@ const FaqPage: NextPage = (props) => {
 
 // A page containing getInitialProps (shows lambda during build) renders at runtime
 FaqPage.getInitialProps = async ({ query, req }) => {
-  const faqEntry = faqs[query.id] || faqs[0];
+  // The "query" containing the id exists on both client and server side
+  const queryId: number = query.id ? Number(query.id) : 0;
+  const faqEntry: FaqEntryModel = faqs[queryId];
+  console.log('FaqPage.getInitialProps query.id =>', query.id);
 
   // Async import inside the component creates a separate bundle for moment.js
   // See https://v8.dev/features/dynamic-import
@@ -58,16 +61,12 @@ FaqPage.getInitialProps = async ({ query, req }) => {
   return {
     entry: faqEntry,
     editDate: lastEdited
-  };
+  } as { entry: FaqEntryModel, editDate: string };
 }
 
 FaqPage.propTypes = {
   entry: PropTypes.object,
-  editDate: PropTypes.string,
-  router: PropTypes.object
+  editDate: PropTypes.string
 };
 
-// Before 6.x the url property got injected into every
-// Page component. Now inject the Next router object into
-// pages and all their descending components.
-export default withRouter(FaqPage);
+export default FaqPage;

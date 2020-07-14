@@ -7,7 +7,7 @@ import { AttributeTableModel } from '../../models/attributeTable.model';
  * @example http://localhost:3001/api/svg
  * @see https://nextjs.org/blog/next-9#api-routes
  */
-function handle(req: NextApiRequest, res: NextApiResponse<AttributeTableModel[]>): void {
+function handleSvgReq(req: NextApiRequest, res: NextApiResponse<AttributeTableModel[]>): void {
   console.log('API /svg, method =>', req.method, 'query =>', req.query);
 
   switch (req.method) {
@@ -22,4 +22,4 @@ function handle(req: NextApiRequest, res: NextApiResponse<AttributeTableModel[]>
   }
 }
 
-export default handle;
+export default handleSvgReq;
