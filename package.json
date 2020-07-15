@@ -2,7 +2,7 @@
   "name": "svg-sprite-generator",
   "version": "0.5.0",
   "description": "App to create SVG symbols files by simply dropping all your icons here",
-  "main": "server/index.js",
+  "main": "index.js",
   "scripts": {
     "dev": "nodemon server/index.js",
     "build": "npm run lint && next build",
