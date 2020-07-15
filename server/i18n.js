@@ -1,5 +1,5 @@
-const NextI18Next = require('next-i18next').default
-const localeSubpaths = require('../next.config.js').publicRuntimeConfig.localeSubpaths;
+const NextI18Next = require('next-i18next').default;
+const { localeSubpaths } = require('next/config').default().publicRuntimeConfig;
 
 const localeSubpathVariations = {
   none: {},
@@ -12,7 +12,10 @@ const localeSubpathVariations = {
   },
 };
 
-module.exports = new NextI18Next({
-  otherLanguages: ['de'],
-  localeSubpaths: localeSubpathVariations[localeSubpaths]
+const nextI18Next = new NextI18Next({
+  localeSubpaths: localeSubpathVariations[localeSubpaths],
+  defaultLanguage: 'en',
+  otherLanguages: ['de']
 });
+
+module.exports = nextI18Next;

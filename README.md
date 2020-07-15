@@ -14,3 +14,8 @@
  - set modifiers (i.e. whether fill/stroke should be stripped)
  - click RUN
 
+# Used libraries and scripts
+
+ - i18next and next-i18next for internationalization
+ - material-ui for complex UI components and icons
+ - Typescript for compiling *.tsx files

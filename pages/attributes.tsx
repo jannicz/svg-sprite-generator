@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
+import { withTranslation } from '../server/i18n';
 import Layout from '../components/Layout/Layout';
 import attributeTable from '../assets/attributes.json';
 import { AttributeTableModel } from '../models/attributeTable.model';
 import { textLabels } from '../models/attributeTableTextLabels.viewmodel';
-import { withRouter } from 'next/router';
 import MUIDataTable from 'mui-datatables';
 import PropTypes from 'prop-types';
 
@@ -110,4 +110,4 @@ AttributePage.propTypes = {
   data: PropTypes.array
 };
 
-export default withRouter(AttributePage) as any;
+export default withTranslation('common')(AttributePage);

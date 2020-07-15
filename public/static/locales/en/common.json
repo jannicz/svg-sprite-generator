@@ -1,5 +1,6 @@
 {
   "hello": "Hello {{user}}",
+  "language": "German",
   "error-with-status": "An error occurred on the server - {{statusCode}}",
   "error-404": "404 - Page not found"
 }

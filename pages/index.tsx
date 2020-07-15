@@ -1,19 +1,44 @@
-import { NextPage } from 'next';
+import { NextPage, NextPageContext } from 'next';
+import { withTranslation, i18n, } from '../server/i18n';
+import { WithTranslation } from 'next-i18next';
 import React from 'react';
 import Layout from '../components/Layout/Layout';
+import PropTypes from 'prop-types';
 
-import { appWithTranslation } from '../server/i18n.js';
+const Index: NextPage = (props: any) => {
+  const t = props.t;
 
-const Index: NextPage = () => {
-  console.log('Render Index.tsx');
+  const changeLanguage = () => {
+    const newLanguage = i18n.language === 'en' ? 'de' : 'en';
+    console.log('changing language from', i18n.language, 'to', newLanguage);
+    i18n.changeLanguage(newLanguage);
+  };
 
   return (
     <Layout>
-      <h2>Simply create a SVG symbols file by dropping your icons here</h2>
+      <h2>{t('index:headline')}</h2>
+
+      <button type='button' onClick={changeLanguage}>
+        {t('language')}
+      </button>
 
       <textarea rows={20} cols={80}></textarea>
     </Layout>
   )
 }
 
-export default Index;
+Index.propTypes = {
+  t: PropTypes.func.isRequired
+}
+
+Index.getInitialProps = async (context: NextPageContext) => {
+  const contextQuery = context.query;
+  console.log('Render Index.tsx, context query =>', context.query);
+
+  return {
+    ...contextQuery,
+    namespacesRequired: ['common', 'index']
+  };
+};
+
+export default withTranslation('common')(Index);

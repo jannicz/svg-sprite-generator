@@ -1,9 +1,12 @@
-import Link from 'next/link';
+import { withTranslation, Link } from '../../server/i18n';
+import { WithTranslation } from 'next-i18next';
+import PropTypes from 'prop-types';
 import React from 'react';
 import styles from './Header.module.scss';
-import { NextPage } from 'next';
 
-const Header: NextPage = () => {
+const Header = (props: WithTranslation) => {
+  const t = props.t;
+
   return (
     <header className={styles.header}>
       <h1>
@@ -32,4 +35,8 @@ const Header: NextPage = () => {
   );
 }
 
-export default Header;
+Header.propTypes = {
+  t: PropTypes.func.isRequired,
+}
+
+export default withTranslation('common')(Header);
