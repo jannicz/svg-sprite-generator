@@ -1,11 +1,8 @@
-import { withTranslation, Link } from '../../server/i18n';
-import { WithTranslation } from 'next-i18next';
-import PropTypes from 'prop-types';
 import React from 'react';
 import styles from './Header.module.scss';
+import Link from 'next/link';
 
-const Header = (props: WithTranslation) => {
-  const t = props.t;
+const Header = () => {
 
   return (
     <header className={styles.header}>
@@ -35,8 +32,4 @@ const Header = (props: WithTranslation) => {
   );
 }
 
-Header.propTypes = {
-  t: PropTypes.func.isRequired,
-}
-
-export default withTranslation('common')(Header);
+export default Header;

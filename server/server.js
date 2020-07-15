@@ -1,16 +1,11 @@
 const attributesJson = require('../assets/attributes.json');
 const express = require('express');
 const next = require('next');
-const nextI18next = require('./i18n.js');
-const nextI18NextMiddleware = require('next-i18next/middleware').default;
-// const { setConfig } = require('next/config');
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
-
-// setConfig(require('../next.config'));
 
 /**
  * Starts dedicated express server
@@ -19,9 +14,6 @@ const handle = app.getRequestHandler();
 app.prepare().then(async () => {
   const server = express();
   console.log('Express Server starting...');
-
-  await nextI18next.initPromise;
-  server.use(nextI18NextMiddleware(nextI18next));
 
   // Redirect by express
   server.get('/test', (req, res) => {

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { withTranslation } from '../server/i18n';
 import Layout from '../components/Layout/Layout';
 import attributeTable from '../assets/attributes.json';
 import { AttributeTableModel } from '../models/attributeTable.model';
@@ -110,4 +109,4 @@ AttributePage.propTypes = {
   data: PropTypes.array
 };
 
-export default withTranslation('common')(AttributePage);
+export default AttributePage;

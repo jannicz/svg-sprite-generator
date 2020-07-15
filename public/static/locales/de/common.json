@@ -1,6 +1,0 @@
-{
-  "hello": "Hallo {{user}}",
-  "language": "Englisch",
-  "error-with-status": "Auf dem Server ist ein Fehler aufgetreten - {{statusCode}}",
-  "error-404": "404 - Seite nicht gefunden"
-}

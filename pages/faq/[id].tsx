@@ -1,12 +1,12 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { Link } from '../../server/i18n';
 import React from 'react';
 import Layout from '../../components/Layout/Layout';
 import { FaqEntryModel } from '../../models/faqEntry.model';
 import faqs from '../../assets/faq.json';
 import styles from './id.module.scss';
 import PropTypes from 'prop-types';
+import Link from 'next/link';
 
 const FaqPage: NextPage = (props: any) => {
   const router = useRouter();
