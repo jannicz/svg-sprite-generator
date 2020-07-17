@@ -22,7 +22,7 @@ app.prepare().then(async () => {
 
   await nextI18next.initPromise;
   server.use(nextI18NextMiddleware(nextI18next));
-  this.app.use(express.static('public'));
+  server.use(express.static('public'));
 
   // Redirect by express
   server.get('/test', (req, res) => {
