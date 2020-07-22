@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import { Link } from '../server/i18n';
+import { Link } from '../i18n';
 import React from 'react';
 import Head from 'next/head';
 import faqs from '../assets/faq.json';

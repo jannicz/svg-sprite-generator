@@ -1,5 +1,5 @@
 import { NextPage, NextPageContext } from 'next';
-import { withTranslation, i18n, } from '../server/i18n';
+import { withTranslation, i18n, } from '../i18n';
 import { WithTranslation } from 'next-i18next';
 import React from 'react';
 import Layout from '../components/Layout/Layout';

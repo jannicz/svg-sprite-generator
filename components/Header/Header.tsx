@@ -1,4 +1,4 @@
-import { withTranslation, Link } from '../../server/i18n';
+import { withTranslation, Link } from '../../i18n';
 import { WithTranslation } from 'next-i18next';
 import PropTypes from 'prop-types';
 import React from 'react';

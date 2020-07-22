@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { Link } from '../../server/i18n';
+import { Link } from '../../i18n';
 import React from 'react';
 import Layout from '../../components/Layout/Layout';
 import { FaqEntryModel } from '../../models/faqEntry.model';

@@ -12,10 +12,5 @@ const bundleAnalyzer = withBundleAnalyzer({
 
 module.exports = {
   // pageExtensions: ['tsx'], // breaks the API
-  publicRuntimeConfig: {
-    localeSubpaths: typeof process.env.LOCALE_SUBPATHS === 'string'
-      ? process.env.LOCALE_SUBPATHS
-      : 'none',
-  },
   ...bundleAnalyzer
 }
