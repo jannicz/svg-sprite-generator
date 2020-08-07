@@ -4,7 +4,6 @@ import attributeTable from '../assets/attributes.json';
 import { AttributeTableModel } from '../models/attributeTable.model';
 import { textLabels } from '../models/attributeTableTextLabels.viewmodel';
 import MUIDataTable from 'mui-datatables';
-import PropTypes from 'prop-types';
 
 const AttributePage = (props: any) => {
   const [responsive, setResponsive] = useState('simple');
@@ -57,7 +56,7 @@ const AttributePage = (props: any) => {
 
   return (
     <Layout>
-      <h2>Sprite generation script mode of behaviour</h2>
+      <h2>Stripping Attributes</h2>
 
       <MUIDataTable
         title={'Attributes that are removed by the SVG Sprite Generator'}
@@ -103,10 +102,6 @@ AttributePage.getInitialProps = async ({ query, req }) => {
       data: mapUiDataTable(response)
     };
   }
-};
-
-AttributePage.propTypes = {
-  data: PropTypes.array
 };
 
 export default AttributePage;

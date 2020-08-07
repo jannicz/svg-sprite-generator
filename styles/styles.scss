@@ -2,20 +2,27 @@
 @import './vars';
 
 body {
-  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   color: $color-dark;
 }
 
 main {
   padding: 0 20px 60px 20px;
+  min-height: calc(100vh - 48px - 48px);
 }
 
 footer {
-  position: fixed;
   bottom: 0;
-  padding: 10px 20px;
-  border-top: 1px solid $color-dark;
-  width: 100%;
-  background-color: $color-white;
+  padding: 10px 24px;
+  background-color: $color-violet;
+  color: $color-white;
   z-index: 1000;
+}
+
+[role="tooltip"] {
+  div {
+    padding: 5px;
+    font-size: 0.8rem;
+    background-color: $color-dark;
+  }
 }

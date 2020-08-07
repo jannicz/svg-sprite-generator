@@ -2,9 +2,12 @@ import { NextPage } from 'next';
 import React from 'react';
 import Header from '../Header/Header';
 import Head from 'next/head';
-import PropTypes from 'prop-types';
 
-const Layout: NextPage = (props: { children: NextPage }) => {
+type Props = {
+  children: React.ReactNode
+}
+
+const Layout: NextPage = (props: Props) => {
   return (
     <>
       <Head>
@@ -20,9 +23,5 @@ const Layout: NextPage = (props: { children: NextPage }) => {
     </>
   )
 }
-
-Layout.propTypes = {
-  children: PropTypes.node
-};
 
 export default Layout;
