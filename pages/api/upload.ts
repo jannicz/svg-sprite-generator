@@ -1,4 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import processSvgSprite from '../../server/transform-sprite';
+import { SvgFileModel } from '../../models/svgFile.model';
 
 // Disable automatic body parser
 export const config = {
@@ -27,25 +29,39 @@ type NextApiRequestWithFiles = NextApiRequest & {
  * Receives, transforms and returns a fileList into a SVG sprite
  */
 function handleUploadReq(req: NextApiRequestWithFiles, res: NextApiResponse): void {
-
   console.log('API /upload (pages/api)', req.method, 'query =>', req.query);
 
     if (!req.files || Object.keys(req.files).length === 0) {
       return res.status(400).send('No files were uploaded');
     }
 
-    const sampleFiles = req.files;
-    console.log('SAMPLE FILES =>', sampleFiles);
-
     const files = req.files['file'];
+    let decodedFiles: SvgFileModel[] = [];
+    let svgSprite: string;
 
-    console.log('SAMPLE files =>', !!sampleFiles, '=>', files);
+    if (files) {
+      try {
+        decodedFiles = files.map((file) => {
+          return {
+            name: file.name,
+            svg: file.data.toString('utf8')
+          }
+        });
 
-    const svg = files[0].data.toString('utf8');
+        // console.log('Decoded files =>', decodedFiles);
 
-    console.log('BUFFER TO STRING =>', svg);
+        svgSprite = processSvgSprite(decodedFiles);
 
-    return res.status(200).json({ transformed: 'foo' });
+        return res.status(200).json({
+          svgSymbol: svgSprite
+        });
+      } catch (e) {
+        console.error('Error during decoding of files', e);
+        return res.status(405).end();
+      }
+    }
+
+    return res.status(405).end();
 }
 
 export default handleUploadReq;

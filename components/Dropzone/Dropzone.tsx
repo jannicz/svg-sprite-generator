@@ -1,23 +1,31 @@
+import React, { useState } from 'react';
 import { DropzoneArea } from 'material-ui-dropzone';
+import Snackbar from '@material-ui/core/Snackbar';
 import Button from '@material-ui/core/Button';
 import InfoIcon from '@material-ui/icons/Info';
 import IconButton from '@material-ui/core/IconButton';
-import React, { useState } from 'react';
 import styles from './Dropzone.module.scss';
 import Tooltip from '@material-ui/core/Tooltip';
+import MarkupDialog from '../MarkupDialog/MarkupDialog';
 
 const Dropzone = () => {
   const [fileObjects, setFileObjects] = useState([]);
+  const [error, setError] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [markup, setMarkup] = useState('');
 
   const handleChange = (newFileObjs: File[]) => {
     setFileObjects(newFileObjs);
+  };
+
+  const handleDialogClose = () => {
+    setDialogOpen(false);
   };
 
   const upload = () => {
     const formData = new FormData();
 
     fileObjects.forEach((file) => {
-      console.log('appending', file.name);
       formData.append('file', file);
     });
 
@@ -26,15 +34,29 @@ const Dropzone = () => {
       body: formData
     };
 
-    fetch('/api/upload', options).then((e) => {
-      console.log('FETCH POST SUCCESS', e);
+    fetch('/api/upload', options).then((response) => {
+      return response.json();
     }).catch((e) => {
-      console.log('FETCH FAILED');
+      console.warn('SVG generation did not complete, possible server side error', e);
+      setError(true);
+    }).then((response: { svgSymbol: string }) => {
+      console.log('Fetch success =>', response);
+      setMarkup(response.svgSymbol);
+      setDialogOpen(true);
     });
   }
 
   return (
     <div className={styles.dropzone}>
+      <Snackbar
+        open={error}
+        autoHideDuration={6000}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+        message="Sorry, SVG Sprite generation failed on server side :-("
+      />
+
+      <MarkupDialog markup={markup} oncloseFn={handleDialogClose} open={dialogOpen} />
+
       <DropzoneArea
         onChange={handleChange}
         dropzoneClass={'dropzone'}
