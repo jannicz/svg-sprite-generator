@@ -29,39 +29,39 @@ type NextApiRequestWithFiles = NextApiRequest & {
  * Receives, transforms and returns a fileList into a SVG sprite
  */
 function handleUploadReq(req: NextApiRequestWithFiles, res: NextApiResponse): void {
-  console.log('API /upload (pages/api)', req.method, 'query =>', req.query);
+  console.log('API /upload (pages/api) files =>', req.files);
 
-    if (!req.files || Object.keys(req.files).length === 0) {
-      return res.status(400).send('No files were uploaded');
+  if (!req.files || Object.keys(req.files).length === 0) {
+    return res.status(400).send('No files were uploaded');
+  }
+
+  const files = req.files['file'];
+  let decodedFiles: SvgFileModel[] = [];
+  let svgSprite: string;
+
+  if (files) {
+    try {
+      decodedFiles = files.map((file) => {
+        return {
+          name: file.name,
+          svg: file.data.toString('utf8')
+        }
+      });
+
+      console.log('Decoded files =>', decodedFiles);
+
+      svgSprite = processSvgSprite(decodedFiles);
+
+      return res.status(200).json({
+        svgSymbol: svgSprite
+      });
+    } catch (e) {
+      console.error('Error during decoding of files', e);
+      return res.status(405).end();
     }
+  }
 
-    const files = req.files['file'];
-    let decodedFiles: SvgFileModel[] = [];
-    let svgSprite: string;
-
-    if (files) {
-      try {
-        decodedFiles = files.map((file) => {
-          return {
-            name: file.name,
-            svg: file.data.toString('utf8')
-          }
-        });
-
-        // console.log('Decoded files =>', decodedFiles);
-
-        svgSprite = processSvgSprite(decodedFiles);
-
-        return res.status(200).json({
-          svgSymbol: svgSprite
-        });
-      } catch (e) {
-        console.error('Error during decoding of files', e);
-        return res.status(405).end();
-      }
-    }
-
-    return res.status(405).end();
+  return res.status(405).end();
 }
 
 export default handleUploadReq;
