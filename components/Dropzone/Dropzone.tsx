@@ -15,6 +15,7 @@ const Dropzone = () => {
   const [markup, setMarkup] = useState('');
 
   const handleChange = (newFileObjs: File[]) => {
+    console.log('setFileObjects =>', newFileObjs);
     setFileObjects(newFileObjs);
   };
 
@@ -26,13 +27,17 @@ const Dropzone = () => {
     const formData = new FormData();
 
     fileObjects.forEach((file) => {
+      console.log('Append file', file.name);
       formData.append('file', file);
     });
+
 
     const options = {
       method: 'POST',
       body: formData
     };
+
+    console.log('fetchig...', options);
 
     fetch('/api/upload', options).then((response) => {
       return response.json();
@@ -40,9 +45,11 @@ const Dropzone = () => {
       console.warn('SVG generation did not complete, possible server side error', e);
       setError(true);
     }).then((response: { svgSymbol: string }) => {
-      console.log('Fetch success =>', response);
-      setMarkup(response.svgSymbol);
-      setDialogOpen(true);
+      if (response) {
+        console.log('Success =>', response);
+        setMarkup(response.svgSymbol);
+        setDialogOpen(true);
+      }
     });
   }
 
