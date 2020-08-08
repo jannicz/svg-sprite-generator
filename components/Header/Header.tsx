@@ -1,42 +1,72 @@
+import { useRouter } from 'next/router';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
+import AppBar from '@material-ui/core/AppBar';
+import IconButton from '@material-ui/core/IconButton';
+import Toolbar from '@material-ui/core/Toolbar';
 import Tooltip from '@material-ui/core/Tooltip';
-import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
 import SettingsIcon from '@material-ui/icons/Settings';
 import TransformIcon from '@material-ui/icons/Transform';
 import styles from './Header.module.scss';
-import Link from 'next/link';
 
 const Header = () => {
+  const router = useRouter();
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+
+  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
-    <div className={styles.header}>
-      <Typography variant="h1">
-        <Link href='/'>
-          <a aria-label="Home">
+    <AppBar position="static">
+      <Toolbar className={styles.toolbar}>
+        <Tooltip title={'Home'}>
+          <IconButton onClick={() => router.push('/')}>
             <TransformIcon className={styles.headerHeadlineIcon} />
-            <span>SVG Sprite Generator</span>
-          </a>
-        </Link>
-      </Typography>
+          </IconButton>
+        </Tooltip>
+        <Typography variant="h6" className={styles.title}>
+          SVG Sprite Generator
+        </Typography>
 
-      <div className={styles.headerLinks}>
-        <Link href='/faqs'>
-          <a aria-label="FAQ">
-            <Tooltip title={'See FAQ'}>
-              <QuestionAnswerIcon />
-            </Tooltip>
-          </a>
-        </Link>
-        <Link href='/attributes'>
-          <a aria-label="Attributes that can be stripped">
-            <Tooltip title={'Attributes that can be stripped'}>
-              <SettingsIcon />
-            </Tooltip>
-          </a>
-        </Link>
-      </div>
-    </div>
+        <div>
+          <IconButton
+            aria-label="Open menu"
+            aria-controls="menu-appbar"
+            aria-haspopup="true"
+            onClick={handleMenu}
+            color="inherit"
+          >
+            <SettingsIcon />
+          </IconButton>
+          <Menu
+            id="menu-appbar"
+            anchorEl={anchorEl}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            open={open}
+            onClose={handleClose}
+          >
+            <MenuItem onClick={() => router.push('/faqs')}>FAQ</MenuItem>
+            <MenuItem onClick={() => router.push('/attributes')}>SVG Attributes</MenuItem>
+          </Menu>
+        </div>
+      </Toolbar>
+    </AppBar>
   );
 }
 

@@ -4,19 +4,29 @@
 body {
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   color: $color-dark;
-}
-
-main {
-  padding: 0 20px 60px 20px;
-  min-height: calc(100vh - 48px - 48px);
+  -webkit-font-smoothing: subpixel-antialiased;
 }
 
 footer {
   bottom: 0;
   padding: 10px 24px;
-  background-color: $color-violet;
+  background-color: $color-primary;
   color: $color-white;
   z-index: 1000;
+}
+
+a {
+  color: $color-primary;
+  text-decoration: none;
+  margin: 0;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &:focus {
+    outline-offset: 2px;
+  }
 }
 
 [role="tooltip"] {
@@ -25,4 +35,20 @@ footer {
     font-size: 0.8rem;
     background-color: $color-dark;
   }
+}
+
+[aria-label="breadcrumb"] {
+  padding-bottom: 20px;
+
+  .breadcrumbLink {
+    display: flex;
+  }
+
+  .breadcrumbIcon {
+    margin-right: 5px;
+  }
+}
+
+.dropzone {
+
 }

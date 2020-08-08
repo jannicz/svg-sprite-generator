@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
-import Layout from '../components/Layout/Layout';
-import attributeTable from '../assets/attributes.json';
 import { AttributeTableModel } from '../models/attributeTable.model';
 import { textLabels } from '../models/attributeTableTextLabels.viewmodel';
+import React, { useState } from 'react';
+import Link from 'next/link';
+import Layout from '../components/Layout/Layout';
+import attributeTable from '../assets/attributes.json';
 import MUIDataTable from 'mui-datatables';
+import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import HomeIcon from '@material-ui/icons/Home';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
 
 const AttributePage = (props: any) => {
   const [responsive, setResponsive] = useState('simple');
@@ -56,7 +61,21 @@ const AttributePage = (props: any) => {
 
   return (
     <Layout>
-      <h2>Stripping Attributes</h2>
+      <Breadcrumbs aria-label="breadcrumb">
+        <Link href='/'>
+          <a className={'breadcrumbLink'}>
+            <HomeIcon className={'breadcrumbIcon'} />
+            Home
+          </a>
+        </Link>
+        <Typography color="textPrimary">
+          Attributes
+        </Typography>
+      </Breadcrumbs>
+
+      <Typography variant="h4" component="h2">
+        Stripping Attributes
+      </Typography>
 
       <MUIDataTable
         title={'Attributes that are removed by the SVG Sprite Generator'}

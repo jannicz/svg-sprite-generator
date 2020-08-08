@@ -1,27 +1,57 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
+import { FaqEntryModel } from '../../models/faqEntry.model';
 import React from 'react';
 import Layout from '../../components/Layout/Layout';
-import { FaqEntryModel } from '../../models/faqEntry.model';
-import faqs from '../../assets/faq.json';
-import styles from './id.module.scss';
-import PropTypes from 'prop-types';
+import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import HomeIcon from '@material-ui/icons/Home';
+import Typography from '@material-ui/core/Typography';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 import Link from 'next/link';
+import faqs from '../../assets/faq.json';
+import PropTypes from 'prop-types';
 
 const FaqPage: NextPage = (props: any) => {
   const router = useRouter();
 
   return (
     <Layout>
-      <Link href='/faqs'>
-        <a>Back to FAQ List</a>
-      </Link>
+      <Breadcrumbs aria-label="breadcrumb">
+        <Link href='/'>
+          <a className={'breadcrumbLink'}>
+            <HomeIcon className={'breadcrumbIcon'} />
+            Home
+          </a>
+        </Link>
+        <Link href='/faqs'>
+          <a className={'breadcrumbLink'}>
+            FAQs
+          </a>
+        </Link>
+        <Typography color="textPrimary">
+          FAQs
+        </Typography>
+      </Breadcrumbs>
 
-      <h2>FAQ <small>({router?.query?.id})</small></h2>
+      <Card style={{ padding: '20px', maxWidth: '500px' }}>
+        <CardContent>
+          <Typography color="textSecondary" gutterBottom>
+            Question {router?.query?.id}
+          </Typography>
+          <Typography variant="h5" component="h2">
+            {props.entry.title}
+          </Typography>
+          <Typography variant="body2" component="p" style={{ padding: '20px 0 20px 0' }}>
+            {props.entry.content}
+            <br />
+          </Typography>
+          <Typography color="textSecondary">
+            <time dateTime={props.entry.edited}>Edited: {props.editDate}</time>
+          </Typography>
+        </CardContent>
+      </Card>
 
-      <h3 className={styles.heading}>{props.entry.title}</h3>
-      <p className={styles.content}>{props.entry.content}</p>
-      <time dateTime={props.entry.edited}>Edited: {props.editDate}</time>
     </Layout>
   )
 }

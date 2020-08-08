@@ -2,6 +2,7 @@ import { NextPage } from 'next';
 import React from 'react';
 import Header from '../Header/Header';
 import Head from 'next/head';
+import styles from './Layout.module.scss';
 
 type Props = {
   children: React.ReactNode
@@ -14,7 +15,7 @@ const Layout: NextPage = (props: Props) => {
         <title>SVG sprite generator</title>
       </Head>
       <Header></Header>
-      <main>
+      <main className={styles.layout}>
         {props.children}
       </main>
       <footer>
