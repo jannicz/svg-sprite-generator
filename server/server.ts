@@ -1,4 +1,5 @@
 import express, { Request, Response } from 'express';
+import fileUpload from 'express-fileupload';
 import next from 'next';
 
 // Local files
@@ -19,7 +20,8 @@ export class Server {
       await app.prepare();
       const server = express();
 
-      /* Classic API approach */
+      server.use(fileUpload());
+
       server.get('/api/expressSvg', (req, res) => {
         console.log('API /api/expressSvg, method =>', req.method, 'query =>', req.query);
         return res.status(200).json(attributesJson);
