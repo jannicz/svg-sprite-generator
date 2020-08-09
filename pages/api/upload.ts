@@ -61,6 +61,7 @@ function handleUploadReq(req: NextApiRequestWithFiles, res: NextApiResponse): vo
     }
   }
 
+  console.error('No files found in request, files =>', req.files);
   return res.status(405).end();
 }
 

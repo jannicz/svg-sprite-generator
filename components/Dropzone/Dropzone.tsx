@@ -31,10 +31,10 @@ const Dropzone = () => {
       formData.append('file', file);
     });
 
-
     const options = {
       method: 'POST',
-      body: formData
+      body: formData,
+      contentType: 'multipart/form-data'
     };
 
     console.log('fetchig...', options);
