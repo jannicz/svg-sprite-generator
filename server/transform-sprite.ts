@@ -5,7 +5,7 @@ export default function processSvgSprite(svgArray: SvgFileModel[]) {
   let svgElement = `<?xml version="1.0" encoding="UTF-8"?>\n<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="0" height="0">\n`;
 
   svgArray.forEach((el, i) => {
-    console.log('iterate svgArray', i, el);
+    console.log('iterate svgArray', i);
     svgElement += appendSymbol(el.svg, el.name);
   });
 

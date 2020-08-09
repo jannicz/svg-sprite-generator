@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { readFiles } from './Filereader.helper';
 import { DropzoneArea } from 'material-ui-dropzone';
 import Snackbar from '@material-ui/core/Snackbar';
 import Button from '@material-ui/core/Button';
@@ -23,6 +24,10 @@ const Dropzone = () => {
     setDialogOpen(false);
   };
 
+  /**
+   * Fails on Server
+   * @deprecated
+   */
   const upload = () => {
     const formData = new FormData();
 
@@ -40,9 +45,44 @@ const Dropzone = () => {
     console.log('fetchig...', options);
 
     fetch('/api/upload', options).then((response) => {
-      return response.json();
+      if (response.status === 200) {
+        return response.json();
+      } else {
+        setError(true);
+      }
     }).catch((e) => {
       console.warn('SVG generation did not complete, possible server side error', e);
+      setError(true);
+    }).then((response: { svgSymbol: string }) => {
+      if (response) {
+        console.log('Success =>', response);
+        setMarkup(response.svgSymbol);
+        setDialogOpen(true);
+      }
+    });
+  }
+
+  const uploadAsJson = async () => {
+    const textFiles = await readFiles(fileObjects);
+
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(textFiles),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+
+    console.log('fetching with options =>', options);
+
+    fetch('/api/uploadjson', options).then((response) => {
+      if (response.status === 200) {
+        return response.json();
+      } else {
+        setError(true);
+      }
+    }).catch((e) => {
+      console.warn('SVG generation failed', e);
       setError(true);
     }).then((response: { svgSymbol: string }) => {
       if (response) {
@@ -75,7 +115,7 @@ const Dropzone = () => {
         useChipsForPreview={false}
       />
       <div className={styles.uploadControls}>
-        <Button variant="contained" color="secondary" onClick={upload} disabled={fileObjects.length < 2}>
+        <Button variant="contained" color="secondary" onClick={uploadAsJson} disabled={fileObjects.length < 2}>
           Transform ({fileObjects.length})
         </Button>
         <Tooltip title={'You must at least drop 2 SVG files in order to generate a SVG sprite'}>
