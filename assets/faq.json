@@ -4,12 +4,22 @@
   },
   "1": {
     "title": "What does this library do?",
-    "content": "You can upload multiple SVG files using the UPLOAD form - the library will process them and create one SVG file containing your icons as 'symbols'. These can be used inside your project similarly to a sprite file.",
+    "content": "You can upload multiple SVG files using the Dropdown form - the library will process them and create one SVG file containing your icons as 'symbols'. These can be used inside your project similarly to a sprite file. You can read this <a href='https://css-tricks.com/gotchas-on-getting-svg-into-production/'>article with tips and tricks about using SVG symbols</a>",
     "edited": "2020-07-05"
   },
   "2": {
     "title": "How can i import it into my project?",
-    "content": "You can run npm i -D svg-icon-sprite to add the library as a dev dependency.",
+    "content": "Run <code>npm i -S svg-icon-sprite</code> to add the library as a dependency. Afterwards import it using<br /><code>import 'svg-icon-sprite'</code><br />or<br /><code>const SvgIcon = require('svg-icon-sprite')</code><br />depending on your bundler",
     "edited": "2020-07-07"
+  },
+  "3": {
+    "title": "How do i use the component?",
+    "content": "After importing the component, i will get registered as a web component is on page load. Now you can invoke using the <code>svg-icon tag</code><br /><br /><code>&lt;svg-icon src='assets/sprites/sprite.svg#explore' width='48px' viewBox='0 0 24 24'/&gt;&lt;/svg-icon&gt;</code>",
+    "edited": "2020-08-30"
+  },
+  "4": {
+    "title": "How do I use the CLI generator in my node environment?",
+    "content": "Yes, you can generate sprites on backend side. Import <code>svg-parser.lib</code> using require or ES6 module syntax:<br /><br /><code>import svgParserLib from 'svg-icon-sprite/scripts/svg-parser.lib';</code><br /><br />Afterwards invoke the library via<br /><code>svgParserLib.iterateFiles(files, false, false, retrieveFileName)</code>",
+    "edited": "2020-08-29"
   }
 }

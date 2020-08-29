@@ -1,6 +1,6 @@
 {
   "name": "svg-sprite-generator",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "App to create SVG symbols files by simply dropping all your icons here",
   "main": "dist/server/index.js",
   "scripts": {
@@ -14,7 +14,8 @@
     "lint": "npx eslint . --ext .ts,.tsx",
     "analyze": "cross-env ANALYZE=true next build",
     "analyze:server": "cross-env BUNDLE_ANALYZE=server next build",
-    "analyze:browser": "cross-env BUNDLE_ANALYZE=browser next build"
+    "analyze:browser": "cross-env BUNDLE_ANALYZE=browser next build",
+    "generate:sprite": "svg-icon-generate --folder=./assets/material-icons --output=./assets/test.svg"
   },
   "keywords": [],
   "author": "Jan Suwart",
@@ -23,14 +24,13 @@
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
     "express": "^4.17.1",
-    "express-fileupload": "^1.1.10",
     "material-ui-dropzone": "^3.3.1",
     "moment": "^2.27.0",
     "mui-datatables": "^3.1.4",
     "next": "^9.4.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "svg-icon-sprite": "^1.0.0"
+    "svg-icon-sprite": "^1.1.1"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^9.4.4",

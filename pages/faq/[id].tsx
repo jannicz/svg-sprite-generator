@@ -30,7 +30,7 @@ const FaqPage: NextPage = (props: any) => {
           </a>
         </Link>
         <Typography color="textPrimary">
-          FAQs
+          Q{router?.query?.id}
         </Typography>
       </Breadcrumbs>
 
@@ -42,10 +42,13 @@ const FaqPage: NextPage = (props: any) => {
           <Typography variant="h5" component="h2">
             {props.entry.title}
           </Typography>
-          <Typography variant="body2" component="p" style={{ padding: '20px 0 20px 0' }}>
-            {props.entry.content}
-            <br />
-          </Typography>
+          <Typography
+              variant="body2"
+              component="p"
+              style={{ padding: '20px 0 20px 0' }}
+              dangerouslySetInnerHTML={{ __html: props.entry.content }}
+          ></Typography>
+          <br />
           <Typography color="textSecondary">
             <time dateTime={props.entry.edited}>Edited: {props.editDate}</time>
           </Typography>

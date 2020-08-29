@@ -1,68 +1,47 @@
+import svgParserLib from 'svg-icon-sprite/scripts/svg-parser.lib';
 import { NextApiRequest, NextApiResponse } from 'next';
-import processSvgSprite from '../../server/transform-sprite';
 import { SvgFileModel } from '../../models/svgFile.model';
 
-// Disable automatic body parser
-export const config = {
-  api: {
-    bodyParser: false
-  }
-}
-
-type expressFile = {
-  name: string
-  data: Buffer
-  size: number
-  encoding: string
-  tempFilePath: string
-  truncated: boolean
-  mimetype: 'image/svg+xml'
-  md5: string
-  mv: () => void
-}
-
-type NextApiRequestWithFiles = NextApiRequest & {
-  files: expressFile[]
+// Dummy wait
+async function wait(ms) {
+  return new Promise(resolve => {
+    setTimeout(resolve, ms);
+  });
 }
 
 /**
  * Receives, transforms and returns a fileList into a SVG sprite
+ * Expects JSON format in request body (stringified text files)
  */
-function handleUploadReq(req: NextApiRequestWithFiles, res: NextApiResponse): void {
-  console.log('API /upload (pages/api) files =>', req.files);
+async function handleUploadReq(req: NextApiRequest, res: NextApiResponse) {
+  console.log('API /uploadJSON (pages/api) files =>', typeof req.body);
 
-  if (!req.files || Object.keys(req.files).length === 0) {
+  if (!req.body || req.body.length === 0) {
     return res.status(400).send('No files were uploaded');
   }
 
-  const files = req.files['file'];
-  let decodedFiles: SvgFileModel[] = [];
-  let svgSprite: string;
+  const files: SvgFileModel[] = req.body;
+  const retrieveFileName = obj => obj.svg;
 
-  if (files) {
-    try {
-      decodedFiles = files.map((file) => {
-        return {
-          name: file.name,
-          svg: file.data.toString('utf8')
-        }
-      });
+  try {
+    const { svgElement, elementsChanged } = svgParserLib.iterateFiles(files, false, false, retrieveFileName);
 
-      console.log('Decoded files =>', decodedFiles);
+    if (elementsChanged > 0) {
+      const svgSprite = svgParserLib.wrapInSvgTag(svgElement);
+      console.log('Successfully parsed =>', files.length, 'symbols into a sprite');
 
-      svgSprite = processSvgSprite(decodedFiles);
-
+      // await wait(1000);
       return res.status(200).json({
-        svgSymbol: svgSprite
+        svgSymbol: svgSprite,
+        amount: elementsChanged
       });
-    } catch (e) {
-      console.error('Error during decoding of files', e);
-      return res.status(405).end();
+    } else {
+      throw new Error('Amount of files was 0, empty response');
     }
+  } catch (e) {
+    console.error('Error during decoding of files', e);
+    return res.status(405).end();
   }
-
-  console.error('No files found in request, files =>', req.files);
-  return res.status(405).end();
 }
 
 export default handleUploadReq;

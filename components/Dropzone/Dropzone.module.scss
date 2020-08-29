@@ -5,3 +5,15 @@
 .uploadControls {
   margin-top: 20px;
 }
+
+.buttonUpload {
+  position: relative;
+}
+
+.buttonProgress {
+  color: green;
+  position: absolute;
+  top: 6px;
+  left: 45%;
+  margin: 0;
+}
