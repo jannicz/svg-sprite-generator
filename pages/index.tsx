@@ -12,10 +12,10 @@ const Index: NextPage = () => {
   return (
     <Layout>
       <div className={styles.index}>
-        <Grid container spacing={3} justify={'center'} alignItems={'center'}>
+        <Grid container spacing={3} justify={'center'} alignItems={'flex-start'}>
           <Grid item xs={12}>
             <Typography variant="h4" component="h2">
-              Simply create a SVG symbols file by transforming your icons here
+              Transform your SVG icons into a sprite by uploading them here
             </Typography>
           </Grid>
 

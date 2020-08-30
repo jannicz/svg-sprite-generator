@@ -12,12 +12,12 @@
 
  - drop (upload) your files
  - set modifiers (i.e. whether fill/stroke should be stripped)
- - click RUN
+ - click `TRANSFORM` to trigger the generation
+ - copy and paste the generated markup into a your `sprite.svg` file
 
 # Development notes
 
 ## Used libraries and scripts
 
- - i18next and next-i18next for internationalization
  - material-ui for complex UI components and icons
  - Typescript for compiling *.tsx files

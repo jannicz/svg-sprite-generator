@@ -1,33 +1,35 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { readFiles } from './Filereader.helper';
 import { DropzoneArea } from 'material-ui-dropzone';
+import { useRecoilState } from 'recoil';
+import { applicationState } from '../../state/applicationState';
+import { fileUploadState } from '../../state/fileUpload.state';
+import { markupDialogState } from '../../state/markupDialog.state';
 import Snackbar from '@material-ui/core/Snackbar';
 import Button from '@material-ui/core/Button';
 import InfoIcon from '@material-ui/icons/Info';
 import IconButton from '@material-ui/core/IconButton';
-import styles from './Dropzone.module.scss';
 import Tooltip from '@material-ui/core/Tooltip';
 import MarkupDialog from '../MarkupDialog/MarkupDialog';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import styles from './Dropzone.module.scss';
 
 const Dropzone = () => {
-  const [fileObjects, setFileObjects] = useState([]);
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const [markup, setMarkup] = useState('');
+  const [app, setApp] = useRecoilState(applicationState);
+  const [fileUpload, setFileUpload] = useRecoilState(fileUploadState);
+  const [markupDialog, setMarkupDialog] = useRecoilState(markupDialogState);
 
   const handleChange = (newFileObjs: File[]) => {
-    console.log('setFileObjects =>', newFileObjs);
-    setFileObjects(newFileObjs);
+    console.log('fileUpload =>', newFileObjs);
+    setFileUpload(newFileObjs);
   };
 
   const handleDialogClose = () => {
-    setDialogOpen(false);
+    setMarkupDialog({ ...markupDialog, open: false });
   };
 
   const upload = async () => {
-    const textFiles = await readFiles(fileObjects);
+    const textFiles = await readFiles(fileUpload);
 
     const options = {
       method: 'POST',
@@ -39,24 +41,24 @@ const Dropzone = () => {
 
     console.log('fetching with options =>', options);
 
-    setLoading(true);
+    setApp({ error: false, loading: true });
 
     fetch('/api/upload', options).then((response) => {
       if (response.status === 200) {
         return response.json();
       } else {
-        setError(true);
+        setApp({ error: true, loading: false });
       }
     }).catch((e) => {
       console.warn('SVG generation failed', e);
-      setError(true);
-      setLoading(false);
+      setApp({ error: true, loading: false });
+
     }).then((response: { svgSymbol: string }) => {
-      setLoading(false);
+      setApp({ error: false, loading: false });
+
       if (response) {
         console.log('Success =>', response);
-        setMarkup(response.svgSymbol);
-        setDialogOpen(true);
+        setMarkupDialog({ open: true, markup: response.svgSymbol });
       }
     });
   }
@@ -64,13 +66,13 @@ const Dropzone = () => {
   return (
     <div className={styles.dropzone}>
       <Snackbar
-        open={error}
+        open={app.error}
         autoHideDuration={6000}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
         message="Sorry, SVG Sprite generation failed on server side :-("
       />
 
-      <MarkupDialog markup={markup} oncloseFn={handleDialogClose} open={dialogOpen} />
+      <MarkupDialog markup={markupDialog.markup} oncloseFn={handleDialogClose} open={markupDialog.open} />
 
       <DropzoneArea
         onChange={handleChange}
@@ -81,16 +83,18 @@ const Dropzone = () => {
         filesLimit={1000}
         showFileNames={true}
         useChipsForPreview={false}
+        showAlerts={['error', 'info']}
+        previewGridClasses={{ item: styles.customItem }}
       />
       <div className={styles.uploadControls}>
         <Button
           variant="contained"
           color="secondary"
           onClick={upload}
-          disabled={fileObjects.length < 2 || loading}
+          disabled={fileUpload.length < 2 || app.loading}
           className={styles.buttonUpload}>
-          Transform ({fileObjects.length})
-          {loading && <CircularProgress size={24} className={styles.buttonProgress} />}
+            Transform ({fileUpload.length})
+            {app.loading && <CircularProgress size={24} className={styles.buttonProgress} />}
         </Button>
         <Tooltip title={'You must at least drop 2 SVG files in order to generate a SVG sprite'}>
           <IconButton>
