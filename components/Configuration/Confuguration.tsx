@@ -131,7 +131,11 @@ const Configuration = () => {
         </FormGroup>
       </FormControl>
 
-      <MarkupDialog markup={markupDialog.markup} oncloseFn={handleDialogClose} open={markupDialog.open} />
+      <MarkupDialog
+        markup={markupDialog.markup}
+        amount={markupDialog.amount}
+        oncloseFn={handleDialogClose}
+        open={markupDialog.open} />
     </div>
   );
 }
