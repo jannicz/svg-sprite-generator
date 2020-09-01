@@ -14,17 +14,21 @@ async function wait(ms) {
  * Expects JSON format in request body (stringified text files)
  */
 async function handleUploadReq(req: NextApiRequest, res: NextApiResponse) {
-  console.log('API /uploadJSON (pages/api) files =>', typeof req.body);
+  console.log('API /uploadJSON (pages/api) files =>', req.body.length, 'query', req.query);
 
   if (!req.body || req.body.length === 0) {
     return res.status(400).send('No files were uploaded');
   }
 
   const files: SvgFileModel[] = req.body;
+  const trim = req.query.trim === 'true';
+  const strip = req.query.strip === 'true';
   const retrieveFileName = obj => obj.svg;
 
+  console.log('PARAMS trim =>', trim, 'strip =>', strip);
+
   try {
-    const { svgElement, elementsChanged } = svgParserLib.iterateFiles(files, false, false, retrieveFileName);
+    const { svgElement, elementsChanged } = svgParserLib.iterateFiles(files, strip, trim, retrieveFileName);
 
     if (elementsChanged > 0) {
       const svgSprite = svgParserLib.wrapInSvgTag(svgElement);

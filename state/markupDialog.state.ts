@@ -4,6 +4,7 @@ export const markupDialogState = atom({
   key: 'markupDialogState',
   default: {
     open: false,
-    markup: ''
+    markup: '',
+    amount: 0
   }
 });

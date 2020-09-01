@@ -14,12 +14,12 @@
   },
   "3": {
     "title": "How do i use the component?",
-    "content": "After importing the component, i will get registered as a web component is on page load. Now you can invoke using the <code>svg-icon tag</code><br /><br /><code>&lt;svg-icon src='assets/sprites/sprite.svg#explore' width='48px' viewBox='0 0 24 24'/&gt;&lt;/svg-icon&gt;</code>",
+    "content": "After importing the component, i will get registered as a web component is on page load. Now you can invoke using the <strong>svg-icon</strong> tag<br /><br /><code>&lt;svg-icon src='assets/sprites/sprite.svg#explore' width='48px' viewBox='0 0 24 24'/&gt;&lt;/svg-icon&gt;</code>",
     "edited": "2020-08-30"
   },
   "4": {
     "title": "How do I use the CLI generator in my node environment?",
-    "content": "Yes, you can generate sprites on backend side. Import <code>svg-parser.lib</code> using require or ES6 module syntax:<br /><br /><code>import svgParserLib from 'svg-icon-sprite/scripts/svg-parser.lib';</code><br /><br />Afterwards invoke the library via<br /><code>svgParserLib.iterateFiles(files, false, false, retrieveFileName)</code>",
+    "content": "Yes, you can generate sprites on backend side. Import <strong>svg-parser.lib</strong> using require or ES6 module syntax<br /><br /><code>import svgParserLib from 'svg-icon-sprite/scripts/svg-parser.lib'</code><br /><br />Afterwards invoke the library via<br /><code>svgParserLib.iterateFiles(files, false, false, retrieveFileName)</code>",
     "edited": "2020-08-29"
   }
 }
